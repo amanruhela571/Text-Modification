@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>it is the demo title </title>
+</head>
+<body>
+
+<a class="btn btn-primary" href="http://127.0.0.1:8000/home" role="button">back to home</a>
+<button class="btn btn-primary" type="submit">Button</button>
+
+    {{ form.media }}
+
+<a href="http://127.0.0.1:8000/home">back to home</a>
+
+<h1>good mornig {{ name }} from {{place}}</h1>
+
+<!-- it is the html file in temp which referd in views.py in newpage(function/def) -->
+
+<form action="/analyze" method='get'>
+
+<textarea name="text" style="width: 1508px; height: 84px;"></textarea>
+<input type="checkbox" name="remove punc">Remove Puntuations<br>
+<input type="checkbox" name="capitalize">UPPERCASE<br>
+<input type="checkbox" name="remove new line">Remove new line<br>    
+<input type="checkbox" name="remove_extra_space">Remoce EXTRA SPACE<br>
+<button type="submit">hit entre</button>
+</form>
+</body>
+</html>
