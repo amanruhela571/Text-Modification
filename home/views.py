@@ -78,10 +78,10 @@ def analyze(request):
     # print(djtext)             # dont need to print this (it is just for fun)
 
     # get the value of checkbox
-    removepunc = request.GET.get('remove punc','off/empty')
+    removepunc = request.GET.get('removepunc','off/empty')
     capitalize = request.GET.get('capitalize','off')
-    removeNewLIne= request.GET.get('remove new line','default')
-    removeExtraSpace=request.GET.get('remove_extra_space','off')
+    removeNewLIne= request.GET.get('removeNewLIne','default')
+    removeExtraSpace=request.GET.get('removeExtraSpace','off')
     
 # below code check the value of checkbox/variable (if it on then work accordingly)
 
@@ -95,8 +95,22 @@ def analyze(request):
                 analyzed_text = analyzed_text + char
         
         params = {'purpose':'remove punc','analyzed_result':analyzed_text}
+        djtext = analyzed_text
+        # return render(request,'analyzed.html',params)
 
-        return render(request,'analyzed.html',params)
+    elif(removeExtraSpace=="on"):
+        # pass                          #it is used for emptiness
+
+        analyzed_text = ""
+
+        for index,char in enumerate(djtext):            # enumerate used for getting index of our text/string
+             if not(djtext[index] == " " and djtext[index+1]==" "):
+                analyzed_text= analyzed_text + char
+        
+        params = {'purpose':'Removing Extra space','analyzed_result':analyzed_text}
+        djtext = analyzed_text
+        # return render(request,'analyzed.html',params)
+       
 
     elif(capitalize == "on"):       # it is second condition which check it is on and then capitalize it
         analyzed_text = ""
@@ -105,32 +119,23 @@ def analyze(request):
             analyzed_text = analyzed_text + char.upper()
         
         params = {'purpose':'capitalizing text','analyzed_result':analyzed_text}
-        return render(request,'analyzed.html',params)
+        djtext = analyzed_text
+        # return render(request,'analyzed.html',params)
         
-    elif(removeNewLIne == "on"):        # if you simple write (removeNewLIne) then it also work
+    elif removeNewLIne == "on":        # if you simple write (removeNewLIne) then it also work
         analyzed_text = ""
 
         for char in djtext:
-            if(char != '\n' and char !='\r'):
+            if(char != "\n" and char !="\r"):
                 analyzed_text = analyzed_text + char
         
         params = {'purpose':'Removing New Line','analyzed_result':analyzed_text}
-        return render(request,'analyzed.html',params)
+        djtext = analyzed_text
+        # return render(request,'analyzed.html',params)
 
-    elif(removeExtraSpace=="on"):
-        # pass                          #it is used for emptiness
 
-        analyzed_text = ""
+    return render(request,'analyzed.html',params)
 
-        for index,char in enumerate(djtext):            # enumerate used for getting index of our text/string
-            if not (djtext[index]==" " and djtext[index+1]=="  "):
-                analyzed_text= analyzed_text + char
-        
-        params = {'purpose':'Removing Extra space','analyzed_result':analyzed_text}
-        return render(request,'analyzed.html',params)
-
-        
-
-    else:
-        return HttpResponse("<a href='http://127.0.0.1:8000/newpage'>back to text page</a><br>error click the check box")
+    # else:
+    #     return HttpResponse("<a href='http://127.0.0.1:8000/newpage'>back to text page</a><br>error click the check box")
 
