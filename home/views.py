@@ -50,16 +50,18 @@ def Regular_user(request):
 
 
 def index(request):
-    return render(request,'demo2.html')     
+    return render(request,'index.html')     
 
 #demo 2 is the main file and other is only for demo
 
 def contact(request):
+    return render(request,'contact.html')
  
     return HttpResponse('''<a href='http://127.0.0.1:8000/home'>home</a><br>it is contact page,''')
 
 
 def about(request):
+    return render(request,'about.html')
     return HttpResponse('''<h1>you are in about</h1> <a href="/home" >back to home </a>''')     
     #       we can do this by this way also href='/home'  or if you dont give any name to your home page then href = '/' this also works 
 
@@ -68,7 +70,7 @@ def about(request):
 
 def newpage(request):
     variable = {'name':'aman','place':'mars'}
-    return render(request,'demo2.html',variable)
+    return render(request,'index.html',variable)
 
 def analyze(request):
     # get the text
@@ -86,7 +88,7 @@ def analyze(request):
     if (removepunc == "on"):        # it is first if which remove punctuation 
         analyzed_text = ""
 
-        punctuation='''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+        punctuation='''!()-[]{;}:'"\,<>./?@#$%^&*_~'''
 
         for char in djtext:
             if char not in punctuation:
@@ -96,7 +98,7 @@ def analyze(request):
 
         return render(request,'analyzed.html',params)
 
-    elif(capitalize == 'on'):       # it is second condition which check it is on and then capitalize it
+    elif(capitalize == "on"):       # it is second condition which check it is on and then capitalize it
         analyzed_text = ""
 
         for char in djtext:
@@ -118,7 +120,7 @@ def analyze(request):
     elif(removeExtraSpace=="on"):
         # pass                          #it is used for emptiness
 
-        analyzed_text=""
+        analyzed_text = ""
 
         for index,char in enumerate(djtext):            # enumerate used for getting index of our text/string
             if not (djtext[index]==" " and djtext[index+1]=="  "):
